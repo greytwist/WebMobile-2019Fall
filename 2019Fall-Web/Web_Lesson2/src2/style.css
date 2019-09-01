@@ -1,0 +1,29 @@
+
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.outer {
+    margin: auto;
+    padding: 10px;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 240px;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.item {
+    width: 70px;
+    height: 70px;
+    margin: 2px;
+}
+
+
+
+
