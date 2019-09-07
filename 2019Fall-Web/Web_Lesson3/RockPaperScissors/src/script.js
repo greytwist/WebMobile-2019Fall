@@ -33,8 +33,8 @@ function computerChoose() {
 
 function compare(player1Choice, player2Choise) {
     /* Uncomment the line below in the event that we need to check what is happening internally
-       I don't know how to properly set a log level
-        console.log("Player1:" + player1Choice + "\t" + "Player2:" + player2Choise); */
+       I don't know how to properly set a log level*/
+        console.log("Player1:" + player1Choice + "\t" + "Player2:" + player2Choise);
 
     switch (true) {
         case  player1Choice === attack.ROCK && player2Choise === attack.ROCK: {

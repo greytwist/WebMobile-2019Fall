@@ -78,8 +78,7 @@ function calculate() {
 };
 
 for (var i = 0; i < button.length; i++) {
-    console.log("HERE");
-    console.log(button.length);
+
     button[i].addEventListener('click', function() {
         switch (this.innerHTML) {
             case "+":
