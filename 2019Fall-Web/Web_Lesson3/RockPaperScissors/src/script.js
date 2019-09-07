@@ -1,5 +1,8 @@
 /* Declare listenerss*/
 let button = document.getElementsByClassName("button");
+let player1choice = document.getElementById("player1choice");
+let player2choice = document.getElementById("player2choice");
+let results = document.getElementById("results");
 
 /* Use this object to standardize values, like an enum*/
 const attack = {
@@ -38,38 +41,47 @@ function compare(player1Choice, player2Choise) {
 
     switch (true) {
         case  player1Choice === attack.ROCK && player2Choise === attack.ROCK: {
+            results.innerHTML = "TIE!";
             console.log("TIE!");
             break;
         }
         case  player1Choice === attack.ROCK && player2Choise === attack.PAPER: {
+            results.innerHTML = "Player 2 Wins";
             console.log("Player 2 Wins");
             break;
         }
         case  player1Choice === attack.ROCK && player2Choise === attack.SCISSORS: {
+            results.innerHTML = "Player 1 Wins";
             console.log("Player 1 Wins");
             break;
         }
         case  player1Choice === attack.PAPER && player2Choise === attack.ROCK: {
+            results.innerHTML = "Player 1 Wins";
             console.log("Player 1 Wins");
             break;
         }
         case  player1Choice === attack.PAPER && player2Choise === attack.PAPER: {
+            results.innerHTML = "TIE!";
             console.log("TIE!");
             break;
         }
         case  player1Choice === attack.PAPER && player2Choise === attack.SCISSORS: {
+            results.innerHTML = "Player 2 Wins";
             console.log("Player 2 Wins");
             break;
         }
         case  player1Choice === attack.SCISSORS && player2Choise === attack.ROCK: {
+            results.innerHTML = "Player 2 Wins";
             console.log("Player 2 Wins");
             break;
         }
         case  player1Choice === attack.SCISSORS && player2Choise === attack.PAPER: {
+            results.innerHTML = "Player 1 Wins";
             console.log("Player 1 Wins");
             break;
         }
         case  player1Choice === attack.SCISSORS && player2Choise === attack.SCISSORS: {
+            results.innerHTML = "TIE!";
             console.log("TIE!");
             break;
         }
