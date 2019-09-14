@@ -43,6 +43,12 @@ input[type='text'] {
   border-bottom-left-radius: 5px;
 }
 
+.repos {
+  text-align: center;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
 .search {
   text-align: center;
   margin: 50px auto;

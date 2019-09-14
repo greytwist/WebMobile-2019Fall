@@ -17,34 +17,53 @@ function getGithubInfo(user) {
 
 function showUser(user) {
     //2. set the contents of the h2 and the two div elements in the div '#profile' with the user content
-
+    // parse elements from json api return
     let user_name = user.name;
     let user_id = user.id;
     let user_url = user.html_url;
     let user_repos = user.repos_url;
     let user_pic = user.avatar_url;
 
-    updateInternalHTML(user_name, user_id, "show_test_2", "show_test_3");
+    //for html image
+    let user_image = document.createElement("img");
+    user_image.setAttribute('src', user_pic);
+    user_image.setAttribute('alt', "User Image");
 
+    let user_link = "User Link";
+    let test_user_link  = user_link.link(user_url);
+
+    let repo_link = "User Repos";
+    let test_repo_link  = repo_link.link(user_repos);
+
+    //call update function
+    updateInternalHTML(user_name, user_id, test_user_link, test_repo_link, user_image);
 }
 
 function noSuchUser(username) {
     //3. set the elements such that a suitable message is displayed
-    console.log("TEST_FAILED");
-    //updateInternalHTML("noshow_test", "", "noshow_test_3");
+    //Set empty element and have user search again
+    updateInternalHTML("No user found", "None", "","");
 }
 
-function updateInternalHTML(header, id, avatar, information){
+function updateInternalHTML(name, id, information, repos, user_image){
 
-    console.log("START");
-    console.log(header);
-    console.log(id);
-    console.log("END");
-
+    //get profile element by id
     let profile = document.getElementById("profile");
-    profile.getElementsByTagName('h2').textContent = "TEST";
-    profile.getElementsByClassName('avatar').innerText = "potato";
-    profile.getElementsByClassName('information').innerText = information;
+    //set name and id
+    profile.getElementsByTagName('h2')[0].innerText = `Name:${name}  Id:${id}`;
+
+    // clean previously appended tags
+    // add new image
+    profile.getElementsByClassName('avatar')[0].innerHTML = '';
+    profile.getElementsByClassName('avatar')[0].appendChild(user_image);
+
+    // create src link
+    // clean previously appended tags
+    profile.getElementsByClassName('information')[0].innerHTML = information;
+
+    // link to repos
+    // clean previously appended tags
+    profile.getElementsByClassName('repos')[0].innerHTML = repos;
 
 
 }
