@@ -9,13 +9,21 @@ function upDate(previewPic) {
     var alt_text = previewPic.alt;
     var sub_image = previewPic.src;
 
-    var tmp_img = document.createElement("img");
-    tmp_img.setAttribute("alt", alt_text);
-    tmp_img.setAttribute("src", sub_image);
-    tmp_img.id = "image";
+    // var tmp_img = document.createElement("img");
+    // tmp_img.setAttribute("alt", alt_text);
+    // tmp_img.setAttribute("src", sub_image);
+    // tmp_img.id = "image";
+    //
+    // let text = document.createElement("div");
+    // text.innerText = alt_text;
+    //
+    // document.getElementById("image").innerText = '';
+    // document.getElementById("image").appendChild(tmp_img);
+    // document.getElementById("image").appendChild(text);
 
-    document.getElementById("image").innerText = "";
-    document.getElementById("image").appendChild(tmp_img);
+    var image1 = document.getElementById("image");
+    image1.innerText = previewPic.alt;
+    image1.style.backgroundImage = "url("+ previewPic.src + ")";
 
 }
 
