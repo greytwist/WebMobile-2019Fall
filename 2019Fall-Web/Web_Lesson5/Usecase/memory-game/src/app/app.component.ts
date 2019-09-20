@@ -8,6 +8,7 @@ import {Cards} from './cards';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
   title = 'app';
   public cards: Array<{ name: string, icon: string, answer: string, border: string, imagesrc: string, imageAnswersrc: string }> = [];
   cardArrayUsedNumbers: Array<{ id: number, icon: string }> = [];

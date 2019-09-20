@@ -2,5 +2,9 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/2019Fall-Web/Web_Lesson5/Angular/CustomDatabindingDemo" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/2019Fall-Web/Web_Lesson5/Angular/LocalStorageDemo" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/2019Fall-Web/Web_Lesson5/ICP/CalculatorICP" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/2019Fall-Web/Web_Lesson5/ICP/ToDoICP" vcs="Git" />
   </component>
 </project>

@@ -130,7 +130,6 @@ for (var i = 0; i < button.length; i++) {
                     elementsArray.pop();
                     break;
                 }
-
             default:
                 {
                     number.innerHTML += this.innerHTML;
