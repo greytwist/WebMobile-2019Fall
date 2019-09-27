@@ -42,7 +42,13 @@ function showUser(user) {
 function noSuchUser(username) {
     //3. set the elements such that a suitable message is displayed
     //Set empty element and have user search again
-    updateInternalHTML("No user found", "None", "","");
+    let user_link = "No User";
+    let test_user_link  = user_link.link();
+
+    let repo_link = "No Link";
+    let test_repo_link  = repo_link.link();
+
+    updateInternalHTML("No User", "No ID", test_user_link, test_repo_link, "");
 }
 
 function updateInternalHTML(name, id, information, repos, user_image){
@@ -50,7 +56,7 @@ function updateInternalHTML(name, id, information, repos, user_image){
     //get profile element by id
     let profile = document.getElementById("profile");
     //set name and id
-    profile.getElementsByTagName('h2')[0].innerText = `Name:${name}  Id:${id}`;
+    profile.getElementsByTagName('h2')[0].innerText = `Name:${name} Id:${id}`;
 
     // clean previously appended tags
     // add new image
@@ -59,10 +65,12 @@ function updateInternalHTML(name, id, information, repos, user_image){
 
     // create src link
     // clean previously appended tags
+    profile.getElementsByClassName('information')[0].innerHTML = '';
     profile.getElementsByClassName('information')[0].innerHTML = information;
 
     // link to repos
     // clean previously appended tags
+    profile.getElementsByClassName('repos')[0].innerHTML = '';
     profile.getElementsByClassName('repos')[0].innerHTML = repos;
 
 
