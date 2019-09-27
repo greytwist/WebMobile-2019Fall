@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Todo List</title>
+
+</head>
+<body>
+  <div class="container">
+    <h1>TO DO LIST FOR 2019</h1>
+    <div class="todo-list">
+      <div class="todo-list__head">
+        <div class="todo-list-head__text-input">
+          <span (click)="addUserTask(values)">+</span>
+          <input id ="userInput" (keyup)="onKey($event.key)">
+          <p>{{values}}</p>
+        </div>
+      </div>
+      <div class="todo-list__items" *ngFor="let item of items; let i = index;">
+        <li><span>{{i + 1 }}</span>
+          <div (click)="flipStatus(i)" >{{item.task + "Complete:" + item.complete}}</div>
+          <div class = "todo-list-item__trash" (click)="deleteItem(i)">trash</div>
+        </li>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

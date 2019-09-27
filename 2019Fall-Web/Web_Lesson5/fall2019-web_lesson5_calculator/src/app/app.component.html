@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculator</title>
+  // 1. write Typescript code in "app.component.ts" to work with calculator
+</head>
+<body>
+  <div class="calc">
+    <div class="screen">
+      <p id="equation">{{equationDisplay}}</p>
+      <p id="number">{{number}}</p>
+    </div>
+    <div class="buttons">
+
+      <div class="clear" (click)="clearAll()">Clear</div>
+
+      <div class="number" (click)="pressKey('1')">1</div>
+      <div class="number" (click)="pressKey('2')">2</div>
+      <div class="number" (click)="pressKey('3')">3</div>
+      <div class="op" (click)="pressKey('/')">/</div>
+
+      <div class="number" (click)="pressKey('4')">4</div>
+      <div class="number" (click)="pressKey('5')">5</div>
+      <div class="number" (click)="pressKey('6')">6</div>
+      <div class="op" (click)="pressKey('*')">x</div>
+
+      <div class="number" (click)="pressKey('7')">7</div>
+      <div class="number" (click)="pressKey('8')">8</div>
+      <div class="number" (click)="pressKey('9')">9</div>
+      <div class="op" (click)="pressKey('+')">+</div>
+
+      <div class="number" (click)="pressKey('0')">0</div>
+      <div class="equal" (click)="getAnswer()">=</div>
+      <div class="op" (click)="pressKey('-')">-</div>
+
+
+    </div>
+  </div>
+
+</body>
+</html>
