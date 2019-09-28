@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {HeaderComponent} from './header/header.component';
@@ -10,6 +9,7 @@ import {HttpClientJsonpModule, HttpClientModule} from "@angular/common/http";
 import { SearchRestaurantComponent } from './search-restaurant/search-restaurant.component';
 import {RestaurantService} from "./restaurant.service";
 import {RecipeService} from "./recipe.service";
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,6 +22,7 @@ import {RecipeService} from "./recipe.service";
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     HttpClientModule,
     HttpClientJsonpModule,
   ],

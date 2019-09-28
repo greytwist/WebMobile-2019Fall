@@ -5,7 +5,7 @@ import { HttpClient} from "@angular/common/http";
   providedIn: 'root',
 })
 export class RecipeService {
-  //pages: any;
+  items: any;
   isLoading = true;
   BASE_URL = '';
   ID = '';
@@ -21,11 +21,11 @@ export class RecipeService {
     this._http.jsonp(`${this.BASE_URL}?q=${food_type}&app_id=${this.ID}&app_key=${this.KEY}`, 'callback')
         .subscribe((data: any) => {
           this.isLoading = false;
-          //this.pages = Object.keys(data.query.pages).map(function (k) {
-            //     var i = data.query.pages[k];
-            //     return {title: i.title, body: i.extract, page: 'http://en.wikipedia.org/?curid=' + i.pageid}
-          //});
-          console.log(data);
+          this.items = Object.keys(data.hits).map(function (k) {
+             var i = data.hits[k];
+             return {title: i.recipe.label, image: i.recipe.image, page: i.recipe.url}
+          });
+        //  console.log(data);
         });
   }
 

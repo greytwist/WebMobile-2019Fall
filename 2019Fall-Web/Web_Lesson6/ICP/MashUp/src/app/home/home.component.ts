@@ -12,7 +12,10 @@ export class HomeComponent implements OnInit {
 
   isLoading = true;
   @ViewChild('searchText') foodFinder: ElementRef;
-  values = '';
+  hungryFor = '';
+
+  recipes: any;
+  restaurants: any;
 
   currentLat: any;
   currentLong: any;
@@ -33,15 +36,15 @@ export class HomeComponent implements OnInit {
 
   }
 
-  onKey(value: string) {
-    this.values += value;
-  }
-
   submit(values: string) {
     console.log(values);
-    //this.restaurantService.suggestRestaurant(values, this.currentLat, this.currentLong);
-    this.recipeService.suggestRecipe(values);
-    this.values =  "";
+    this.restaurants = this.restaurantService.suggestRestaurant(values, this.currentLat, this.currentLong);
+    this.recipes = this.recipeService.suggestRecipe(values);
+
+    console.log("TEST");
+    console.log(this.restaurants);
+    console.log(this.recipes);
+    console.log("END");
 
 
   }
