@@ -6,8 +6,10 @@ import { AppComponent } from './app.component';
 import {HeaderComponent} from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { SearchRecipeComponent } from './search-recipe/search-recipe.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientJsonpModule, HttpClientModule} from "@angular/common/http";
 import { SearchRestaurantComponent } from './search-restaurant/search-restaurant.component';
+import {RestaurantService} from "./restaurant.service";
+import {RecipeService} from "./recipe.service";
 
 @NgModule({
   declarations: [
@@ -20,9 +22,10 @@ import { SearchRestaurantComponent } from './search-restaurant/search-restaurant
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    HttpClientJsonpModule,
   ],
-  providers: [],
+  providers: [ RestaurantService, RecipeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

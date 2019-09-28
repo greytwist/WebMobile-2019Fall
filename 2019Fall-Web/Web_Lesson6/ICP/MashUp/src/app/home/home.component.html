@@ -5,8 +5,8 @@
       <div class=".container text-center">
         <form onsubmit="submit()">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="What are you in the mood for?">
-            <button type="button" class="btn btn-info" (click)="submit()">Search</button><br>
+            <input type="text" class="form-control" placeholder="What are you in the mood for?" (keyup)="onKey($event.key)">
+            <button type="button" class="btn btn-info" (click)="submit(values)">Search</button><br>
           </div>
         </form>
 
