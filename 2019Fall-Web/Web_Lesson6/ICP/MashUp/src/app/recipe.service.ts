@@ -22,11 +22,12 @@ export class RecipeService {
         .subscribe((data: any) => {
           this.isLoading = false;
           this.items = Object.keys(data.hits).map(function (k) {
-             var i = data.hits[k];
-             return {title: i.recipe.label, image: i.recipe.image, page: i.recipe.url}
+              const i = data.hits[k];
+              return {title: i.recipe.label, image: i.recipe.image, page: i.recipe.url};
           });
-        //  console.log(data);
+          console.log(data);
         });
+    return this.items;
   }
 
 }

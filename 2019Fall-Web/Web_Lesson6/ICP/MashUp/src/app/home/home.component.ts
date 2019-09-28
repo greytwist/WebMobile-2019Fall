@@ -11,7 +11,6 @@ import {RestaurantService} from "../restaurant.service";
 export class HomeComponent implements OnInit {
 
   isLoading = true;
-  @ViewChild('searchText') foodFinder: ElementRef;
   hungryFor = '';
 
   recipes: any;
@@ -20,6 +19,7 @@ export class HomeComponent implements OnInit {
   currentLat: any;
   currentLong: any;
   geolocationPosition: any;
+
 
   constructor(private _http: HttpClient,
               private recipeService: RecipeService,
@@ -38,15 +38,41 @@ export class HomeComponent implements OnInit {
 
   submit(values: string) {
     console.log(values);
-    this.restaurants = this.restaurantService.suggestRestaurant(values, this.currentLat, this.currentLong);
-    this.recipes = this.recipeService.suggestRecipe(values);
-
-    console.log("TEST");
-    console.log(this.restaurants);
-    console.log(this.recipes);
-    console.log("END");
-
-
+    this.suggestRestaurant(values, this.currentLat, this.currentLong);
+    this.suggestRecipe(values);
   }
+
+  suggestRecipe( food_type: string ) {
+        const ID = '3098bb32';
+        const KEY = '74df48de9932144fcbe073239644c346';
+        const BASE_URL = 'https://api.edamam.com/search';
+
+        this._http.jsonp(`${BASE_URL}?q=${food_type}&app_id=${ID}&app_key=${KEY}`, 'callback')
+            .subscribe((data: any) => {
+                this.isLoading = false;
+                this.recipes = Object.keys(data.hits).map(function (k) {
+                    const i = data.hits[k];
+                    return {title: i.recipe.label, image: i.recipe.image, page: i.recipe.url};
+                });
+               // console.log(data);
+            });
+    }
+
+    suggestRestaurant( food_type: string, lat: any, long: any ) {
+        const CLIENT_ID = 'MEFZOFNBCT4APZVI42MNQTX3QPTB4LRYAGQDVRYCYWXLVYJB';
+        const CLIENT_SECRET = 'IWPA20CJ1YWY2BSWWCQ0NX332PGEBKWZHNWOFBIZNPRZR3LV';
+        const BASE_URL = 'https://api.foursquare.com/v2/venues/explore';
+        const limit = 10;
+
+        this._http.jsonp(`${BASE_URL}?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&v=20180323&limit=${limit}&ll=${lat},${long}&query=${food_type}`, 'callback')
+            .subscribe((data: any) => {
+                this.isLoading = false;
+                this.restaurants = Object.keys(data.response.groups[0].items).map(function (k) {
+                    const i = data.response.groups[0].items[k];
+                    return {title: i.venue.name, address: i.venue.location.address, lat: i.venue.location.lat, lng: i.venue.location.lng}
+                });
+               // console.log(data);
+            });
+    }
 
 }

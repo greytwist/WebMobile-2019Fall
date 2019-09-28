@@ -9,7 +9,7 @@ export class RestaurantService {
   isLoading = true;
   CLIENT_ID = '';
   CLIENT_SECRET= '';
-  BASE_URL = '';
+  BASE_URL= '';
   limit;
 
   constructor(private _http: HttpClient) {
@@ -20,15 +20,16 @@ export class RestaurantService {
   }
 
   suggestRestaurant( food_type: string, lat: any, long: any ){
-      this._http.jsonp(`${this.BASE_URL}?client_id=${this.CLIENT_ID}&client_secret=${this.CLIENT_SECRET}&v=20180323&limit=${this.limit}&ll=${lat},${long}&query=${food_type}`, 'callback')
-          .subscribe((data: any) => {
-               this.isLoading = false;
-               this.places = Object.keys(data.response.groups[0].items).map(function (k) {
-                   var i = data.response.groups[0].items[k];
-                   return {title: i.venue.name, address: i.venue.location.address, lat: i.venue.location.lat, lng: i.venue.location.lng}
-               });
-              console.log(data);
-          });
-  }
+        this._http.jsonp(`${this.BASE_URL}?client_id=${this.CLIENT_ID}&client_secret=${this.CLIENT_SECRET}&v=20180323&limit=${this.limit}&ll=${lat},${long}&query=${food_type}`, 'callback')
+            .subscribe((data: any) => {
+                this.isLoading = false;
+                this.places = Object.keys(data.response.groups[0].items).map(function (k) {
+                    var i = data.response.groups[0].items[k];
+                    return {title: i.venue.name, address: i.venue.location.address, lat: i.venue.location.lat, lng: i.venue.location.lng}
+                });
+                console.log(data);
+            });
+        return this.places;
+    }
 
 }
