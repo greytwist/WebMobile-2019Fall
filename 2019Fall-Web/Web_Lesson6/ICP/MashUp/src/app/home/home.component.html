@@ -20,35 +20,40 @@
 
     </form>
   </div>
+  <div class="row">
+    <div class="col-lg-4 col-lg-offset-2">
+      <div class="recipes">
+        <ul class="list-group" *ngFor="let recipe of recipes">
+          <div class="row">
+            <li class="list-group-item">
+                <h4>{{recipe.title}}</h4>
+              <a href="{{recipe.page}}" class="list-group-item-text">{{ recipe.page }}</a>
+              <span class="pull-right">
+                <img src="{{recipe.image}}" style="width: 70px; height: 50px;" align="center"/>
+              </span>
+            </li>
+          </div>
+        </ul>
+      </div>
+    </div>
 
-  <div class=".container recipes">
-    <ul class="list-group" *ngFor="let recipe of recipes">
-      <li class="list-group-item">
-          <h4>{{recipe.title}}</h4>
-        <a href="{{recipe.page}}" class="list-group-item-text">{{ recipe.page }}</a>
-        <span class="pull-right">
-          <img src="{{recipe.image}}" style="width: 70px; height: 50px;" align="center"/>
+    <div class="col-lg-2"></div>
 
-      </span>
-      </li>
-    </ul>
+    <div class="col-lg-4">
+      <div class=" restaurants">
+        <ul class="list-group" *ngFor="let restaurant of restaurants">
+          <div class="row">
+            <li class="list-group-item">
+                <h4>{{restaurant.title}}</h4>
+              <span class="pull-right">
+                   <a href="http://maps.google.com/maps?saddr={{restaurant.lat}},{{restaurant.log}}
+                   &daddr={{restaurant.address}},{{restaurant.address}},{{restaurant.address}}">
+                     <img src="../../assets/google.png" style="width: 30px; height: 30px;"></a>
+              </span>
+            </li>
+          </div>
+        </ul>
+       </div>
+    </div>
   </div>
-
-  <br />
-  <br />
-
-  <div class=".container restaurants">
-    <ul class="list-group" *ngFor="let restaurant of restaurants">
-      <li class="list-group-item">
-          <h4>{{restaurant.title}}</h4>
-        <span class="pull-right">
-             <a href="http://maps.google.com/maps?saddr={{restaurant.lat}},{{restaurant.log}}
-             &daddr={{restaurant.address}},{{restaurant.address}},{{restaurant.address}}">
-               <img src="../../assets/google.png" style="width: 30px; height: 30px;"></a>
-      </span>
-
-      </li>
-    </ul>
-  </div>
-
 </div>

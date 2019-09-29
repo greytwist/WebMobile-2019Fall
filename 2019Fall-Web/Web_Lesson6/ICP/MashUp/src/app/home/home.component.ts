@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { HttpClient} from "@angular/common/http";
-import {RecipeService} from "../recipe.service";
-import {RestaurantService} from "../restaurant.service";
+import { HttpClient} from '@angular/common/http';
+import {RecipeService} from '../recipe.service';
+import {RestaurantService} from '../restaurant.service';
 
 @Component({
   selector: 'app-home',
@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
   submit(food: string, place: string) {
 
       this.suggestRestaurant(food, place, this.currentLat, this.currentLong);
-    this.suggestRecipe(food);
+      this.suggestRecipe(food);
 
       // this.restaurants = this.restaurantService.suggestRestaurant(food, place, this.currentLat, this.currentLong);
       // this.recipes = this.recipeService.suggestRecipe(food);
