@@ -5,10 +5,11 @@
       <div class="form-group">
         <div class="form-group col-lg-6 col-lg-offset-3 input-group">
         <form onsubmit="submit()">
-          <div class="input-group">
-            <input type="text" id="search" class="form-control" placeholder="What are you in the mood for?" [(ngModel)]="hungryFor" name="search">
-            <button type="button" class="btn btn-info" (click)="submit(hungryFor)">Search</button>
-          </div>
+
+            <input type="text" id="search_for" class="form-control" placeholder="What are you in the mood for?" [(ngModel)]="hungryFor" name="search_for">
+            <input type="text" id="search_at" class="form-control" placeholder="Where do you want it?" [(ngModel)]="hungryAt" name="search_at">
+            <button type="button" class="btn btn-info" (click)="submit(hungryFor, hungryAt)">Search</button>
+
         </form>
 
         <div *ngIf="isLoading" class="loading">

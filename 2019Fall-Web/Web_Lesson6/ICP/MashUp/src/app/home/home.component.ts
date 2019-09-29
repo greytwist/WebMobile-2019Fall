@@ -11,7 +11,8 @@ import {RestaurantService} from "../restaurant.service";
 export class HomeComponent implements OnInit {
 
   isLoading = true;
-  hungryFor = '';
+  hungryFor = null;
+  hungryAt = null;
 
   recipes: any;
   restaurants: any;
@@ -36,10 +37,14 @@ export class HomeComponent implements OnInit {
 
   }
 
-  submit(values: string) {
-    console.log(values);
-    this.suggestRestaurant(values, this.currentLat, this.currentLong);
-    this.suggestRecipe(values);
+  submit(food: string, place: string) {
+
+      this.suggestRestaurant(food, place, this.currentLat, this.currentLong);
+    this.suggestRecipe(food);
+
+      // this.restaurants = this.restaurantService.suggestRestaurant(food, place, this.currentLat, this.currentLong);
+      // this.recipes = this.recipeService.suggestRecipe(food);
+
   }
 
   suggestRecipe( food_type: string ) {
@@ -58,7 +63,7 @@ export class HomeComponent implements OnInit {
             });
     }
 
-    suggestRestaurant( food_type: string, lat: any, long: any ) {
+    suggestRestaurant( food_type: string, place: string, lat: any, long: any ) {
         const CLIENT_ID = 'MEFZOFNBCT4APZVI42MNQTX3QPTB4LRYAGQDVRYCYWXLVYJB';
         const CLIENT_SECRET = 'IWPA20CJ1YWY2BSWWCQ0NX332PGEBKWZHNWOFBIZNPRZR3LV';
         const BASE_URL = 'https://api.foursquare.com/v2/venues/explore';

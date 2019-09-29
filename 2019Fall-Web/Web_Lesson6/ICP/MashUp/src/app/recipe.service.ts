@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient} from "@angular/common/http";
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RecipeService {
-  items: any;
-  isLoading = true;
   BASE_URL = '';
   ID = '';
   KEY = '';
@@ -18,16 +16,17 @@ export class RecipeService {
   }
 
   suggestRecipe( food_type: string){
+    let recip = null;
     this._http.jsonp(`${this.BASE_URL}?q=${food_type}&app_id=${this.ID}&app_key=${this.KEY}`, 'callback')
         .subscribe((data: any) => {
-          this.isLoading = false;
-          this.items = Object.keys(data.hits).map(function (k) {
+            recip = Object.keys(data.hits).map(function (k) {
               const i = data.hits[k];
               return {title: i.recipe.label, image: i.recipe.image, page: i.recipe.url};
           });
-          console.log(data);
+          // console.log(data);
         });
-    return this.items;
+
+    return recip;
   }
 
 }
