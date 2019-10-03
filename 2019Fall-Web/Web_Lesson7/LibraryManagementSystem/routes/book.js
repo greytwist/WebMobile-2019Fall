@@ -27,16 +27,13 @@ router.post('/', function (req, res, next) {
 });
 
 /* UPDATE BOOK */
-router.post('/:id', function (req, res, next) {
-  console.log(`TEST A THING ${req.params.id}`)
-  console.log(`TEST ALL ${req.params}`)
+router.put('/:id', function (req, res, next) {
   Book.findByIdAndUpdate(req.params.id,
     req.body,
     {new: true},
     (err, book) => {
       // Handle any possible database errors
       if (err) return res.status(500).send(err);
-      return res.send(book);
     }
   );
 });
