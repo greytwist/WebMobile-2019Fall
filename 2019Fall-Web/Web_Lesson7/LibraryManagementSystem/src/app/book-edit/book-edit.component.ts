@@ -52,8 +52,8 @@ export class BookEditComponent implements OnInit {
   onFormSubmit(id, data) {
     this.api.updateBook(id, data)
       .subscribe(res => {
-        let id = res['_id'];
-        this.router.navigate(['/book-details', id]);
+        const new_id = res['_id']; // It is possible this broke something when I was workign I didn't test this
+        this.router.navigate([`/book-details/${new_id}`]);
       }, (err) => {
         console.log(err);
       });
