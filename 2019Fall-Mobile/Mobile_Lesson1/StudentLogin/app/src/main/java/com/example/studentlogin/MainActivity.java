@@ -6,11 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import android.content.Intent;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -25,9 +22,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        login_button = (Button)findViewById(R.id.login_button);
-        user_name = (EditText)findViewById(R.id.user_name);
-        user_password = (EditText)findViewById(R.id.user_password);
+        login_button = findViewById(R.id.login_button);
+        user_name = findViewById(R.id.user_name);
+        user_password = findViewById(R.id.user_password);
 
         login_button.setOnClickListener( new View.OnClickListener() {
             @Override
