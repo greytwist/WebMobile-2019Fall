@@ -14,11 +14,9 @@ public class MainActivity extends AppCompatActivity {
     Button login_button;
     EditText user_name;
     EditText user_password;
-    int failed_count = 0;
 
     String empty_value = "Your user name or password was empty please try again";
     String incorrect_values = "Your user name or password was incorrect";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,51 +30,28 @@ public class MainActivity extends AppCompatActivity {
         login_button.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean validateFlag = false;
                 String userName = user_name.getText().toString();
                 String userPassword = user_password.getText().toString();
 
-                if (!userName.isEmpty() && !userPassword.isEmpty()) {
-                    if (userName.equals("Admin") && userPassword.equals("Admin")) {
-                        validateFlag = true;
-                    }
-
-                    if (validateFlag) {
-                        failed_count = 0;
-                        Intent redirect = new Intent(MainActivity.this, HomeActivity.class);
-                        startActivity(redirect);
-
-                    } else {
-
-                        failed_count++;
-                        Toast toast = Toast.makeText(getApplicationContext(), incorrect_values, Toast.LENGTH_SHORT);
-                        toast.show();
-
-                    }
-                } else {
-                    failed_count++;
-                    Toast toast = Toast.makeText(getApplicationContext(), empty_value, Toast.LENGTH_SHORT);
-                    toast.show();
+                if ( checkUserNameAndPass( userName, userPassword )) {
+                    Intent redirect = new Intent(MainActivity.this, HomeActivity.class );
+                    startActivity( redirect );
                 }
             }
         });
 
     }
 
-    public boolean checkUserNameAndPass(String userName, String userPassword) {
+    private boolean checkUserNameAndPass(String userName, String userPassword) {
         Boolean validFlag = false;
         if (!userName.isEmpty() && !userPassword.isEmpty()) {
             if (userName.equals("Admin") && userPassword.equals("Admin")) {
                 validFlag = true;
             } else {
-                failed_count++;
-                Toast toast = Toast.makeText(getApplicationContext(), incorrect_values, Toast.LENGTH_SHORT);
-                toast.show();
+                Toast.makeText(getApplicationContext(), incorrect_values, Toast.LENGTH_SHORT).show();
             }
         } else {
-            failed_count++;
-            Toast toast = Toast.makeText(getApplicationContext(), empty_value, Toast.LENGTH_SHORT);
-            toast.show();
+            Toast.makeText(getApplicationContext(), empty_value, Toast.LENGTH_SHORT).show();
         }
 
         return validFlag;

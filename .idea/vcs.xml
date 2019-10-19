@@ -6,5 +6,6 @@
     <mapping directory="$PROJECT_DIR$/2019Fall-Web/Web_Lesson5/Angular/LocalStorageDemo" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/2019Fall-Web/Web_Lesson5/ICP/CalculatorICP" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/2019Fall-Web/Web_Lesson5/ICP/ToDoICP" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/2019Fall-Web/Web_Lesson6/UseCase/MyWiki" vcs="Git" />
   </component>
 </project>

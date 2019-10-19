@@ -30,7 +30,6 @@ router.post('/', function (req, res, next) {
 router.put('/:id', function (req, res, next) {
   Book.findByIdAndUpdate(req.params.id,
     req.body,
-    {new: true},
     (err, book) => {
       // Handle any possible database errors
       if (err) return res.status(500).send(err);

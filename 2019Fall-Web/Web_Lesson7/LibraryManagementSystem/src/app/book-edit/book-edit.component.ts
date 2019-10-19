@@ -37,13 +37,13 @@ export class BookEditComponent implements OnInit {
         this.book = data;
 
         this.updateBookForm = this.formBuilder.group({
-          'id': [data._id, Validators.required],
-          'isbn': [data.isbn, Validators.required],
-          'title': [data.title, Validators.required],
-          'description': [ data.description, Validators.required],
-          'author': [data.author, Validators.required],
-          'publisher': [data.publisher, Validators.required],
-          'published_year': [data.published_year, Validators.required]
+            'id': [data._id, Validators.required],
+            'isbn': [data.isbn, Validators.required],
+            'title': [data.title, Validators.required],
+            'description': [ data.description, Validators.required],
+            'author': [data.author, Validators.required],
+            'publisher': [data.publisher, Validators.required],
+            'published_year': [data.published_year, Validators.required]
         });
 
       });
