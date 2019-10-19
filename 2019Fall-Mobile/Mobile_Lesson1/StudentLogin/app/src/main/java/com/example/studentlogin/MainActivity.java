@@ -8,13 +8,16 @@ import android.view.View;
 import android.content.Intent;
 import android.widget.Button;
 import android.widget.EditText;
-
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     Button login_button;
     EditText user_name;
     EditText user_password;
     int failed_count = 0;
+
+    String empty_value = "Your user name or password was empty please try again";
+    String incorrect_values = "Your user name or password was incorrect";
 
 
     @Override
@@ -37,20 +40,46 @@ public class MainActivity extends AppCompatActivity {
                     if (userName.equals("Admin") && userPassword.equals("Admin")) {
                         validateFlag = true;
                     }
-                }
 
-                if (validateFlag){
-                    failed_count = 0;
-                    Intent redirect = new Intent( MainActivity.this, HomeActivity.class);
-                    startActivity(redirect);
+                    if (validateFlag) {
+                        failed_count = 0;
+                        Intent redirect = new Intent(MainActivity.this, HomeActivity.class);
+                        startActivity(redirect);
 
-                } else{
+                    } else {
 
+                        failed_count++;
+                        Toast toast = Toast.makeText(getApplicationContext(), incorrect_values, Toast.LENGTH_SHORT);
+                        toast.show();
+
+                    }
+                } else {
                     failed_count++;
-
+                    Toast toast = Toast.makeText(getApplicationContext(), empty_value, Toast.LENGTH_SHORT);
+                    toast.show();
                 }
             }
         });
+
+    }
+
+    public boolean checkUserNameAndPass(String userName, String userPassword) {
+        Boolean validFlag = false;
+        if (!userName.isEmpty() && !userPassword.isEmpty()) {
+            if (userName.equals("Admin") && userPassword.equals("Admin")) {
+                validFlag = true;
+            } else {
+                failed_count++;
+                Toast toast = Toast.makeText(getApplicationContext(), incorrect_values, Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        } else {
+            failed_count++;
+            Toast toast = Toast.makeText(getApplicationContext(), empty_value, Toast.LENGTH_SHORT);
+            toast.show();
+        }
+
+        return validFlag;
 
     }
 }
