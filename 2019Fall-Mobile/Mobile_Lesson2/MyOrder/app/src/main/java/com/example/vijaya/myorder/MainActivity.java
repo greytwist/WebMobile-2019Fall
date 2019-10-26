@@ -30,26 +30,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        order_button = findViewById(R.id.order_button);
-        summary_button = findViewById(R.id.summary_button);
+        float price = calculatePrice();
+        String summary_text = createOrderSummary();
 
-//        order_button.setOnClickListener( new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//
-//
-//            }
-//        });
-//
-//        summary_button.setOnClickListener( new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent redirect = new Intent(MainActivity.this, OrderSummary.class );
-//                redirect.putExtra(String message, );
-//                startActivity( redirect );
-//            }
-//        });
+
+        summary_button = findViewById(R.id.summary_button);
+        summary_button.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent redirect = new Intent(MainActivity.this, OrderSummary.class );
+                redirect.putExtra(String message, );
+                startActivity( redirect );
+            }
+        });
     }
 
     /**
