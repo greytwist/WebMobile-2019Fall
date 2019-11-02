@@ -44,6 +44,13 @@ public class QueryUtils {
         BufferedReader in;
         StringBuilder stringBuildTmp = new StringBuilder();
         String inputLineTmp;
+
+        // values to create earth quake object with
+        double quakeMag;
+        String quakeLoc;
+        long quakeTime;
+        String quakeURL;
+
         try {
             //TODO: 1. Create a URL from the requestUrl string and make a GET request to it
             url = new URL(requestUrl);
@@ -80,11 +87,12 @@ public class QueryUtils {
                 tmpJson = array.getJSONObject(i);
                 JSONObject props = tmpJson.getJSONObject("properties");
 
-                double mag = props.isNull("mag") ? null : props.getDouble("mag");
-                String loc = props.isNull("place") ? null : props.getString("place");
-                long time = props.isNull("time") ?  null : props.getLong("time");
-                String urlQuake = props.isNull("url") ? null : props.getString("url");
-                Earthquake tmpQuake = new Earthquake(mag, loc, time, urlQuake);
+                quakeMag = props.isNull("mag") ? null : props.getDouble("mag");
+                quakeLoc = props.isNull("place") ? null : props.getString("place");
+                quakeTime = props.isNull("time") ?  null : props.getLong("time");
+                quakeURL = props.isNull("url") ? null : props.getString("url");
+
+                Earthquake tmpQuake = new Earthquake(quakeMag, quakeLoc, quakeTime, quakeURL);
                 earthquakes.add(tmpQuake);
             }
         } catch (JSONException e) {
