@@ -2,6 +2,8 @@ package com.example.vijaya.earthquakeapp;
 
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
@@ -39,37 +41,56 @@ public class QueryUtils {
         URL url = null;
         // A string to store the response obtained from rest call in the form of string
         String jsonResponse = "";
+        BufferedReader in;
+        StringBuilder stringBuildTmp = new StringBuilder();
+        String inputLineTmp;
         try {
             //TODO: 1. Create a URL from the requestUrl string and make a GET request to it
             url = new URL(requestUrl);
+            HttpURLConnection externalCon = (HttpURLConnection) url.openConnection();
+            externalCon.setRequestMethod("GET");
+            externalCon.setReadTimeout(15000);
+            externalCon.setConnectTimeout(15000);
+            //externalCon.setRequestProperty("Content-Type", "application/json");
+            externalCon.connect();
+
             //TODO: 2. Read from the Url Connection and store it as a string(jsonResponse)
-            /*TODO: 3. Parse the jsonResponse string obtained in step 2 above into JSONObject to extract the values of
-                       "mag","place","time","url"for every earth quake and create corresponding Earthquake objects with them
-                       Add each earthquake object to the list(earthquakes) and return it. */
+            // SHOULD USE THIS TO PARSE RESPONSE
+            int status = externalCon.getResponseCode();
+            in = new BufferedReader(new InputStreamReader(externalCon.getInputStream()));
 
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            try {
-                BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                String inputLine;
-                while ((inputLine = in.readLine()) != null ) {
-                    JSONObject tmpJson = new JSONObject(inputLine);
-                    double mag = tmpJson.isNull("mag") ?  null : tmpJson.getDouble("mag");
-                    String loc = tmpJson.isNull("place") ?  null : tmpJson.getString("places");
-                    //long time = tmpJson.isNull("time") ?  null : tmpJson.getString("time");
-                    long time = 0;
-                    String urlQuake = tmpJson.isNull("url") ?  null : tmpJson.getString("url");
-                    Earthquake tmpQuake = new Earthquake( mag, loc, time, urlQuake);
-                    earthquakes.add(tmpQuake);
-                }
-            } finally {
-                urlConnection.disconnect();
+            while ((inputLineTmp = in.readLine()) != null) {
+                stringBuildTmp.append(inputLineTmp);
             }
-
-            // Return the list of earthquakes
+            in.close();
 
         } catch (Exception e) {
             Log.e(LOG_TAG, "Exception:  ", e);
         }
+
+        /*TODO: 3. Parse the jsonResponse string obtained in step 2 above into JSONObject to extract the values of
+        "mag","place","time","url"for every earth quake and create corresponding Earthquake objects with them
+        Add each earthquake object to the list(earthquakes) and return it. */
+        jsonResponse = stringBuildTmp.toString();
+        try {
+            JSONObject tmpJson = new JSONObject(jsonResponse);
+            JSONArray array = tmpJson.getJSONArray("features");
+
+            for (int i = 0; i < array.length(); i++) {
+                tmpJson = array.getJSONObject(i);
+                JSONObject props = tmpJson.getJSONObject("properties");
+
+                double mag = props.isNull("mag") ? null : props.getDouble("mag");
+                String loc = props.isNull("place") ? null : props.getString("place");
+                long time = props.isNull("time") ?  null : props.getLong("time");
+                String urlQuake = props.isNull("url") ? null : props.getString("url");
+                Earthquake tmpQuake = new Earthquake(mag, loc, time, urlQuake);
+                earthquakes.add(tmpQuake);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         // Return the list of earthquakes
         return earthquakes;
     }
