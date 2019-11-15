@@ -1,5 +1,6 @@
 package com.example.vijaya.androidhardware;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -25,7 +26,7 @@ import java.util.List;
 public class LocationActivity extends AppCompatActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     public Geocoder geocoder;
-    double latitude = 0, longitude = 0;
+    //double latitude = 0, longitude = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +48,12 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
+        int TAG_CODE_PERMISSION_LOCATION = 0;
         mMap = googleMap;
         geocoder = new Geocoder(this);
         StringBuilder userAddress = new StringBuilder();
-        final LocationManager userCurrentLocation = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
         LocationListener userCurrentLocationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
@@ -68,29 +71,41 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
             public void onProviderDisabled(String provider) {
             }
         };
-        LatLng userCurrentLocationCorodinates = null;
-        double latitute = 0, longitude = 0;
+
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat
                 .checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
-            //show message or ask permissions from the user.
-            return;
+
+            ActivityCompat.requestPermissions(this,
+                    new String[] {
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION },
+                    TAG_CODE_PERMISSION_LOCATION);
+
         }
 
         //Getting the current location of the user.
 
-        // ICP Task1: Write the code to get the current location of the user
+       // ICP Task1: Write the code to get the current location of the user
+        final LocationManager userCurrentLocation = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        userCurrentLocation.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, userCurrentLocationListener);
+
+        double latitude = userCurrentLocation.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLatitude();
+        double longitude = userCurrentLocation.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLongitude();
+        latitude = 38.989722;
+        longitude = -94.636111;
+
+        LatLng userCurrentLocationCorodinates = new LatLng(latitude, longitude);
 
         //Getting the address of the user based on latitude and longitude.
         try {
-            List<Address> addresses = geocoder.getFromLocation(latitute, longitude, 1);
+            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
             String city = addresses.get(0).getLocality();
             String state = addresses.get(0).getAdminArea();
             String country = addresses.get(0).getCountryName();
             String postalCode = addresses.get(0).getPostalCode();
             String knownName = addresses.get(0).getFeatureName();
-
             userAddress.append(knownName + ", " + city + ", " + state + ", " + country + " " + postalCode).append("\t");
             Toast.makeText(this, " " + userAddress, Toast.LENGTH_SHORT).show();
         } catch (Exception ex) {

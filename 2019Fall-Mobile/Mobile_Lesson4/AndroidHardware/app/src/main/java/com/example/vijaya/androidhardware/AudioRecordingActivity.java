@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 
 import java.io.IOException;
 
+import javax.xml.transform.Source;
+
 public class AudioRecordingActivity extends AppCompatActivity {
     private static final String LOG_TAG = "AudioRecordTest";
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
@@ -77,14 +79,30 @@ public class AudioRecordingActivity extends AppCompatActivity {
     private void startRecording() {
 
         // ICP Task3: Write the code to recording the Audio
+        mRecorder = new MediaRecorder();
+        mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        mRecorder.setOutputFile(mFileName);
+        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+        mRecorder.setAudioSamplingRate(16000);
+        try{
+            mRecorder.prepare();
+            mRecorder.start();
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "prepare() failed");
+        }
 
     }
 
 
     private void stopRecording() {
-        mRecorder.stop();
-        mRecorder.release();
-        mRecorder = null;
+        try{
+            mRecorder.stop();
+            mRecorder.release();
+            mRecorder = null;
+        }catch(RuntimeException stopException){
+            //handle cleanup here
+        }
     }
 
     class RecordButton extends android.support.v7.widget.AppCompatButton {

@@ -1,12 +1,17 @@
 package com.example.vijaya.androidhardware;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -25,7 +30,10 @@ public class CameraActivity extends AppCompatActivity {
         userImage = (ImageView) findViewById(R.id.view_photo);
 
         // ICP Task2: Write the code to capture the image
-
+        int MY_CAMERA_REQUEST_CODE = 100;
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, MY_CAMERA_REQUEST_CODE);
+        }
 
     }
 

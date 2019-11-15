@@ -92,7 +92,7 @@ public class QueryUtils {
                 quakeTime = props.isNull("time") ?  null : props.getLong("time");
                 quakeURL = props.isNull("url") ? null : props.getString("url");
 
-                Earthquake tmpQuake = new Earthquake(quakeMag, quakeLoc, quakeTime, quakeURL);
+                Earthquake tmpQuake = new Earthquake(quakeMag, quakeLoc, quakeTime, quakeURL    );
                 earthquakes.add(tmpQuake);
             }
         } catch (JSONException e) {
