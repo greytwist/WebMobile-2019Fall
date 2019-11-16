@@ -1,5 +1,6 @@
 package com.vijaya.firebase;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -8,6 +9,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import android.support.annotation.NonNull;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,12 +22,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+
 public class HomeActivity extends AppCompatActivity {
 
     private static final String TAG = HomeActivity.class.getSimpleName();
     private TextView txtDetails;
     private EditText inputName, inputPhone;
     private Button btnSave;
+    private Button btnLogOut;
+    private Button btnDelete;
     private DatabaseReference mFirebaseDatabase;
     private FirebaseDatabase mFirebaseInstance;
 
@@ -39,6 +49,8 @@ public class HomeActivity extends AppCompatActivity {
         inputName = (EditText) findViewById(R.id.name);
         inputPhone = (EditText) findViewById(R.id.phone);
         btnSave = (Button) findViewById(R.id.btn_save);
+        btnLogOut = (Button) findViewById(R.id.log_out);
+        btnDelete = (Button) findViewById(R.id.delete_current_user);
 
         mFirebaseInstance = FirebaseDatabase.getInstance();
 
@@ -83,6 +95,22 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        // Log out the user
+        btnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logCurrentUserOut();
+            }
+        });
+
+        // Log out the user
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteCurrentUser();
+            }
+        });
+
         toggleButton();
     }
 
@@ -92,6 +120,31 @@ public class HomeActivity extends AppCompatActivity {
             btnSave.setText("Save");
         } else {
             btnSave.setText("Update");
+        }
+    }
+
+    private void logCurrentUserOut(){
+        // https://firebase.google.com/docs/auth/android/custom-auth
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        try{
+            auth.signOut();
+            Toast.makeText(HomeActivity.this, "Sign out successful, Good Bye", Toast.LENGTH_LONG).show();
+        } catch (Exception e){
+            Toast.makeText(HomeActivity.this, "Failed to logout", Toast.LENGTH_LONG).show();
+        } finally {
+            Intent redirect = new Intent( HomeActivity.this, WelcomeActivity.class);
+            startActivity(redirect);
+        }
+
+    }
+
+    private void deleteCurrentUser(){
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            user.delete();
+             Intent redirect = new Intent( HomeActivity.this, WelcomeActivity.class);
+             startActivity(redirect);
         }
     }
 

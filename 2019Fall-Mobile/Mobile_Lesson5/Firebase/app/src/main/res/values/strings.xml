@@ -4,6 +4,8 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="log_out">Log out</string>
+    <string name="delete">Delete User</string>
 
     <style name="DefaultButtonText">
         <item name="android:layout_width">fill_parent</item>
