@@ -4,10 +4,17 @@ import android.provider.BaseColumns;
 
 public final class SampleDBContract {
 
-    public static final String SELECT_EMPLOYEE_WITH_EMPLOYER = "SELECT * " +
-            "FROM " + Employee.TABLE_NAME + " ee INNER JOIN " + Employer.TABLE_NAME + " er " +
-            "ON ee." + Employee.COLUMN_EMPLOYER_ID + " = er." + Employer._ID + " WHERE " +
-            "ee." + Employee.COLUMN_FIRSTNAME + " like ? AND ee." + Employee.COLUMN_LASTNAME + " like ?";
+    public static final String SELECT_EMPLOYEE_WITH_EMPLOYER =
+            "SELECT ee.*, er.*, ee." + Employee._ID + " AS " + Employee.COLUMN_EMPLOYEE_ID +
+            " FROM " + Employee.TABLE_NAME + " ee INNER JOIN " + Employer.TABLE_NAME + " er " + "ON ee." + Employee.COLUMN_EMPLOYER_ID + " = er." + Employer._ID +
+            " WHERE " + "ee." + Employee.COLUMN_FIRSTNAME + " like ? AND ee." + Employee.COLUMN_LASTNAME + " like ?";
+
+    public static final String SELECT_EMPLOYEE_BY_ID_WITH_EMPLOYER =
+            "SELECT ee.*, er.*, ee." + Employee._ID + " AS " + Employee.COLUMN_EMPLOYEE_ID +
+                    " FROM " + Employee.TABLE_NAME + " ee INNER JOIN " + Employer.TABLE_NAME + " er " + "ON ee." + Employee.COLUMN_EMPLOYER_ID + " = er." + Employer._ID +
+                    " WHERE " + "ee." + Employee._ID + " like ?";
+
+
 
     private SampleDBContract() {
     }
@@ -28,6 +35,7 @@ public final class SampleDBContract {
 
     public static class Employee implements BaseColumns {
         public static final String TABLE_NAME = "employee";
+        public static final String COLUMN_EMPLOYEE_ID = "EMPLOYEE_ID";
         public static final String COLUMN_FIRSTNAME = "firstname";
         public static final String COLUMN_LASTNAME = "lastname";
         public static final String COLUMN_DATE_OF_BIRTH = "date_of_birth";

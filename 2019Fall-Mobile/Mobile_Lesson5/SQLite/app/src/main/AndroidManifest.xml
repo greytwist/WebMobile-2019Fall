@@ -20,6 +20,7 @@
         </activity>
         <activity android:name=".EmployerActivity" />
         <activity android:name=".EmployeeActivity" />
+        <activity android:name=".EmployeeUpdate" />
     </application>
 
 </manifest>

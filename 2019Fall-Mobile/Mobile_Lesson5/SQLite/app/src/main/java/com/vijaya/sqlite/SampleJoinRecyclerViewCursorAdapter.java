@@ -1,8 +1,10 @@
 package com.vijaya.sqlite;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,9 +35,12 @@ public class SampleJoinRecyclerViewCursorAdapter extends RecyclerView.Adapter<Sa
         }
 
         public void bindCursor(Cursor cursor) {
+            final String empolyee_id = cursor.getString(cursor.getColumnIndexOrThrow(SampleDBContract.Employee.COLUMN_EMPLOYEE_ID));
+
             itemBinding.firstnameLabel.setText(cursor.getString(
                     cursor.getColumnIndexOrThrow(SampleDBContract.Employee.COLUMN_FIRSTNAME)
             ));
+
             itemBinding.lastnameLabel.setText(cursor.getString(
                     cursor.getColumnIndexOrThrow(SampleDBContract.Employee.COLUMN_LASTNAME)
             ));
@@ -58,6 +63,17 @@ public class SampleJoinRecyclerViewCursorAdapter extends RecyclerView.Adapter<Sa
             calendar.setTimeInMillis(cursor.getLong(
                     cursor.getColumnIndexOrThrow(SampleDBContract.Employer.COLUMN_FOUNDED_DATE)));
             itemBinding.foundedLabel.setText(new SimpleDateFormat("dd/MM/yyyy").format(calendar.getTime()));
+
+            itemBinding.sendForUpdateButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent( view.getContext(), com.vijaya.sqlite.EmployeeUpdate.class);
+                    i.putExtra("EMPLOYEE_ID", empolyee_id);
+                    view.getContext().startActivity(i);
+
+                }
+            });
+
         }
     }
 
