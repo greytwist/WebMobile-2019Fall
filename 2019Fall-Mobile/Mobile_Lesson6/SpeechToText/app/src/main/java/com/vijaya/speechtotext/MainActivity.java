@@ -2,6 +2,7 @@ package com.vijaya.speechtotext;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
@@ -10,7 +11,9 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,10 +22,20 @@ public class MainActivity extends AppCompatActivity {
     private TextView mVoiceInputTv;
     private ImageButton mSpeakBtn;
 
+    private String userName = "greyson";
+
     private static final int REQ_TTS_STATUS_CHECK = 0;
     private static final String TAG = "TTS Testing";
 
     TextToSpeech tts;
+
+    private Date now;
+    private SimpleDateFormat sdfDate = new SimpleDateFormat("HH:mm"); //dd/MM/yyyy
+
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
+
+
 
 
 
@@ -30,6 +43,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        preferences = getSharedPreferences(PREFS,0);
+//        editor = preferences.edit();
+//        editor.putString(NAME,<extracted name>).apply();//private static final String NAME = "name";
 
         Intent checkIntent = new Intent();
         checkIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
@@ -94,24 +111,36 @@ public class MainActivity extends AppCompatActivity {
 
         String response = "";
 
-        switch (call) {
+        switch (call.toLowerCase()) {
             case "hello":
-                response = "What is your name?";
+                response = "what is your name";
                 break;
-            case "I am not feeling good. What should I do?":
+            case "i am not feeling good what should i do" :
                 response = "I can understand. Please tell your symptoms in short.";
                 break;
-            case "Thank you, my Medical Assistant":
+            case "i'm not feeling good what should i do" :
+                response = "I can understand. Please tell your symptoms in short.";
+                break;
+            case "thank you my medical assistant":
                 response = "Thank you too " +  this.userName +" Take care";
                 break;
-            case "What time is it?":
-                response = "The time is " + this.currentTime;
+            case "what time is it" :
+                now = new Date();
+                String[] strDate = sdfDate.format(now).split(":");
+                if(strDate[1].contains("00"))strDate[1] = "o'clock";
+                response = "The time is " + sdfDate.format(now);
                 break;
-            case "What medicines should I take?":
-                response = "I think you have fever. Please take this medicine.";
+            case "what medicines should i take":
+                response = "I think you have a fever. Please take this medicine.";
                 break;
             default :
-                response = "Sorry I'm not familiar with that";
+
+                if( call.contains("my name is")){
+                    this.userName = call.split(" ")[3];
+                    response = "Got it, thanks " + this.userName;
+                } else {
+                    response = "Sorry I'm not familiar with that";
+                }
         }
 
         return response;
